@@ -17,7 +17,7 @@ list_raster_files <- function(img_dir){
 #' and add the result in a PowerPoint document object produced
 #' by \plot function & argument {\link[officer]{read_pptx}}.
 #' @param x an \code{rpptx} object produced by \code{officer::read_pptx}
-#' @param plotFunc plot function
+#' @param func.name plot function
 #' @param argv argument
 #' @param ggobj ggplot objet to print. argument \code{code} will
 #' be ignored if this argument is supplied.
@@ -38,7 +38,7 @@ list_raster_files <- function(img_dir){
 #'   left = 1, top = 2, width = 6, height = 4)
 #' print(doc, target = "vg.pptx")
 #' }
-ph_with_vg2 <- function( x, plotFunc, argv, ggobj = NULL, type, index = 1, ... ){
+ph_with_vg2 <- function( x, func.name, argv, ggobj = NULL, type, index = 1, ... ){
   stopifnot(inherits(x, "rpptx"))
   slide <- x$slide$get_slide(x$cursor)
 
@@ -67,8 +67,9 @@ ph_with_vg2 <- function( x, plotFunc, argv, ggobj = NULL, type, index = 1, ... )
     if( !is.null(ggobj) ){
       stopifnot(inherits(ggobj, "ggplot"))
       print(ggobj)
-    } else
-      do.call(plotFunc, argv)
+    } else {
+      do.call(get(func.name), argv)
+    }
   }, finally = dev.off() )
 
   raster_files <- list_raster_files(img_dir = img_directory )
@@ -88,7 +89,7 @@ ph_with_vg2 <- function( x, plotFunc, argv, ggobj = NULL, type, index = 1, ... )
 #' @param left,top left and top origin of the plot on the slide in inches.
 #' @param height,width Height and width in inches.
 #' @importFrom officer ph_from_xml_at
-ph_with_vg2_at <- function( x, plotFunc, argv, ggobj = NULL, left, top, width, height, ... ){
+ph_with_vg2_at <- function( x, func.name, argv, ggobj = NULL, left, top, width, height, ... ){
   stopifnot(inherits(x, "rpptx"))
   slide <- x$slide$get_slide(x$cursor)
 
@@ -104,8 +105,9 @@ ph_with_vg2_at <- function( x, plotFunc, argv, ggobj = NULL, left, top, width, h
     if( !is.null(ggobj) ){
       stopifnot(inherits(ggobj, "ggplot"))
       print(ggobj)
-    } else
-      do.call(plotFunc, argv)
+    } else {
+      do.call(get(func.name), argv)
+    }
   }, finally = dev.off() )
 
   raster_files <- list_raster_files(img_dir = img_directory )

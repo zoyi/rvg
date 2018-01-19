@@ -5,14 +5,15 @@
 \alias{ph_with_vg2_at}
 \title{add a plot output as vector graphics into a PowerPoint object}
 \usage{
-ph_with_vg2(x, plotFunc, argv, ggobj = NULL, type, index = 1, ...)
+ph_with_vg2(x, func.name, argv, ggobj = NULL, type, index = 1, ...)
 
-ph_with_vg2_at(x, plotFunc, argv, ggobj = NULL, left, top, width, height, ...)
+ph_with_vg2_at(x, func.name, argv, ggobj = NULL, left, top, width, height,
+  ...)
 }
 \arguments{
 \item{x}{an \code{rpptx} object produced by \code{officer::read_pptx}}
 
-\item{plotFunc}{plot function}
+\item{func.name}{plot function}
 
 \item{argv}{argument}
 
